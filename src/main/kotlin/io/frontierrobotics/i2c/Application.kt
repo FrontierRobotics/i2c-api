@@ -1,4 +1,4 @@
-package io.frontierrobotics.pathfinder.iic
+package io.frontierrobotics.i2c
 
 import org.springframework.boot.SpringApplication
 import org.springframework.boot.autoconfigure.SpringBootApplication

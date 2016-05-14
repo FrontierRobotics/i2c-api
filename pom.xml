@@ -10,13 +10,13 @@
     </parent>
 
     <groupId>io.frontierrobotics</groupId>
-    <artifactId>pathfinder-iic</artifactId>
+    <artifactId>i2c</artifactId>
     <version>0.1.0</version>
-    <name>Pathfinder I2C</name>
+    <name>I2C Service</name>
 
     <properties>
         <kotlin.version>1.0.1-2</kotlin.version>
-        <main.class>io.frontierrobotics.pathfinder.iic.ApplicationKt</main.class>
+        <main.class>io.frontierrobotics.i2c.ApplicationKt</main.class>
         <java.version>1.8</java.version>
     </properties>
 
@@ -24,6 +24,11 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.pi4j</groupId>
+            <artifactId>pi4j-core</artifactId>
+            <version>1.0</version>
         </dependency>
         <dependency>
             <groupId>org.jetbrains.kotlin</groupId>
