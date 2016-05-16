@@ -10,7 +10,7 @@
     </parent>
 
     <groupId>io.frontierrobotics</groupId>
-    <artifactId>i2c</artifactId>
+    <artifactId>i2c-api</artifactId>
     <version>0.1.0</version>
     <name>I2C Service</name>
 
