@@ -12,7 +12,7 @@
     <groupId>io.frontierrobotics</groupId>
     <artifactId>i2c-api</artifactId>
     <version>0.1.0</version>
-    <name>I2C Service</name>
+    <name>I2C API</name>
 
     <properties>
         <kotlin.version>1.0.1-2</kotlin.version>
