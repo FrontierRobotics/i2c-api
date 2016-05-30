@@ -7,7 +7,6 @@ import io.frontierrobotics.i2c.bus.I2CBus
 import io.frontierrobotics.i2c.bus.I2CData
 import org.jetbrains.spek.api.Spek
 
-
 class APIControllerSpecs : Spek()
 {
     init
