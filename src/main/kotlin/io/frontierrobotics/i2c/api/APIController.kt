@@ -13,9 +13,10 @@ import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.RestController
 
 @RestController
+@RequestMapping(value = "/bus/{bus}/address/{address}")
 class APIController @Autowired constructor(val bus: I2CBus)
 {
-    @RequestMapping (value = "/bus/{bus}/address/{address}", method = arrayOf(PUT))
+    @RequestMapping (method = arrayOf(PUT))
     fun sendComand(
             @PathVariable(value = "address") address: Byte,
             @RequestParam(value = "data") data: String): ResponseEntity<Result>
@@ -33,7 +34,7 @@ class APIController @Autowired constructor(val bus: I2CBus)
         return ResponseEntity(Result(data), HttpStatus.OK)
     }
 
-    @RequestMapping (value = "/bus/{bus}/address/{address}/internal_address/{internal_address}", method = arrayOf(PUT))
+    @RequestMapping (value = "/internal_address/{internal_address}", method = arrayOf(PUT))
     fun sendComandToInternalAddress(
             @PathVariable(value = "address") address: Byte,
             @PathVariable(value = "internal_address") internalAddress: Byte?,
