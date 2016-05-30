@@ -36,7 +36,7 @@ class APIControllerSpecs : Spek()
                     controller.sendComandToInternalAddress(0x1C, 0x01, "hello")
                     val data = I2CData("hello")
                     val address = I2CAddress(0x1C)
-                    val internalAddress:Byte = 0x01
+                    val internalAddress: Byte = 0x01
 
                     verify(bus).send(data, address, internalAddress)
                 }

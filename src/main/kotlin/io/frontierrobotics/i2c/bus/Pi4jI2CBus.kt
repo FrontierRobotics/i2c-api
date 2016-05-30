@@ -4,7 +4,8 @@ import com.pi4j.io.i2c.I2CFactory
 import org.springframework.stereotype.Service
 
 @Service
-class Pi4jI2CBus : I2CBus, AutoCloseable {
+class Pi4jI2CBus : I2CBus, AutoCloseable
+{
     val bus = I2CFactory.getInstance(com.pi4j.io.i2c.I2CBus.BUS_1)
     val device = bus.getDevice(0x1A)
 
@@ -13,11 +14,18 @@ class Pi4jI2CBus : I2CBus, AutoCloseable {
         val bytes = data.asByteArray()
 
         bus.getDevice(address.value.toInt())
-        println(data)
-        device.write(bytes, 0, bytes.size)
+
+        if (internalAddress != null)
+        {
+            device.write(internalAddress.toInt(), bytes, 0, bytes.size)
+        } else
+        {
+            device.write(bytes, 0, bytes.size)
+        }
     }
 
-    override fun close() {
+    override fun close()
+    {
         bus.close()
     }
 }
