@@ -36,10 +36,21 @@
             <version>${kotlin.version}</version>
         </dependency>
         <dependency>
+            <scope>test</scope>
             <groupId>org.jetbrains.spek</groupId>
             <artifactId>spek</artifactId>
             <version>0.1.195</version>
+        </dependency>
+        <dependency>
             <scope>test</scope>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+        </dependency>
+        <dependency>
+            <scope>test</scope>
+            <groupId>com.nhaarman</groupId>
+            <artifactId>mockito-kotlin</artifactId>
+            <version>0.4.1</version>
         </dependency>
     </dependencies>
 
@@ -80,6 +91,10 @@
         <repository>
             <id>jebrains-all</id>
             <url>http://repository.jetbrains.com/all</url>
+        </repository>
+        <repository>
+            <id>jcenter</id>
+            <url>http://jcenter.bintray.com</url>
         </repository>
     </repositories>
 </project>
