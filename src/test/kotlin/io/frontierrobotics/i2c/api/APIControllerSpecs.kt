@@ -4,6 +4,7 @@ import com.nhaarman.mockito_kotlin.mock
 import com.nhaarman.mockito_kotlin.verify
 import io.frontierrobotics.i2c.bus.I2CAddress
 import io.frontierrobotics.i2c.bus.I2CBus
+import io.frontierrobotics.i2c.bus.I2CDriver
 import io.frontierrobotics.i2c.bus.I2CData
 import org.jetbrains.spek.api.Spek
 
@@ -11,11 +12,12 @@ class APIControllerSpecs : Spek()
 {
     init
     {
+        val driver: I2CDriver = mock()
+        val bus = I2CBus(driver)
+        val controller = APIController(bus)
+
         given("a valid address and data")
         {
-            val bus: I2CBus = mock()
-            val controller = APIController(bus)
-
             on("sending a command")
             {
                 it("should send the command over the bus")
@@ -24,7 +26,7 @@ class APIControllerSpecs : Spek()
                     val data = I2CData("hello")
                     val address = I2CAddress(0x1C)
 
-                    verify(bus).send(data, address)
+                    verify(driver).send(data, address)
                 }
             }
 
@@ -37,7 +39,17 @@ class APIControllerSpecs : Spek()
                     val address = I2CAddress(0x1C)
                     val internalAddress: Byte = 0x01
 
-                    verify(bus).send(data, address, internalAddress)
+                    verify(driver).send(data, address, internalAddress)
+                }
+            }
+        }
+        given("a reserved address")
+        {
+            on("sending a command")
+            {
+                it("should return an error")
+                {
+
                 }
             }
         }

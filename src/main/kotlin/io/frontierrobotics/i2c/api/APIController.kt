@@ -2,6 +2,7 @@ package io.frontierrobotics.i2c.api
 
 import io.frontierrobotics.i2c.bus.I2CAddress
 import io.frontierrobotics.i2c.bus.I2CBus
+import io.frontierrobotics.i2c.bus.I2CDriver
 import io.frontierrobotics.i2c.bus.I2CData
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpStatus
