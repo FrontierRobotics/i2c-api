@@ -1,5 +1,6 @@
 package io.frontierrobotics.i2c.bus
 
+import io.frontierrobotics.i2c.bus.driver.I2CDriver
 
 class I2CBus(val driver: I2CDriver)
 {
@@ -7,8 +8,7 @@ class I2CBus(val driver: I2CDriver)
     {
         if (!address.isValid())
         {
-            //TODO
-            throw RuntimeException("Not a valid I2C address.")
+            throw IllegalArgumentException("Not a valid I2C address.")
         }
 
         driver.send(data, address, internalAddress)
