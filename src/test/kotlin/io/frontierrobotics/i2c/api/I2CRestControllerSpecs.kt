@@ -7,68 +7,71 @@ import io.frontierrobotics.i2c.bus.I2CBus
 import io.frontierrobotics.i2c.bus.I2CData
 import io.frontierrobotics.i2c.bus.driver.I2CDriver
 import org.jetbrains.spek.api.Spek
+import org.jetbrains.spek.api.dsl.describe
+import org.jetbrains.spek.api.dsl.it
+import org.jetbrains.spek.api.dsl.on
 import kotlin.test.assertEquals
 
-class I2CRestControllerSpecs : Spek()
-{
-    init
+class I2CRestControllerSpecs : Spek({
+    describe("a valid address and data")
     {
         val driver: I2CDriver = mock()
         val bus = I2CBus(driver)
         val controller = I2CRestController(bus)
 
-        given("a valid address and data")
+        on("sending a command")
         {
-            on("sending a command")
+            it("should send the command over the bus")
             {
-                it("should send the command over the bus")
-                {
-                    controller.sendCommand(0x1C, "hello")
-                    val data = I2CData("hello")
-                    val address = I2CAddress(0x1C)
+                controller.sendCommand(0x1C, "hello")
+                val data = I2CData("hello")
+                val address = I2CAddress(0x1C)
 
-                    verify(driver).send(data, address)
-                }
-
-                it("should return success")
-                {
-                    val result = controller.sendCommand(0x1C, "hello")
-
-                    assertEquals("Success", result.body.data)
-                }
+                verify(driver).send(data, address)
             }
 
-            on("sending a command to an internal address")
+            it("should return success")
             {
-                it("should send the command over the bus")
-                {
-                    controller.sendCommandToInternalAddress(0x1C, 0x01, "hello")
-                    val data = I2CData("hello")
-                    val address = I2CAddress(0x1C)
-                    val internalAddress: Byte = 0x01
+                val result = controller.sendCommand(0x1C, "hello")
 
-                    verify(driver).send(data, address, internalAddress)
-                }
-
-                it("should return success")
-                {
-                    val result = controller.sendCommandToInternalAddress(0x1C, 0x01, "hello")
-
-                    assertEquals("Success", result.body.data)
-                }
+                assertEquals("Success", result.body.data)
             }
         }
-        given("a reserved address")
-        {
-            on("sending a command")
-            {
-                it("should return an error")
-                {
-                    val result = controller.sendCommand(0x1A, "hello")
 
-                    assertEquals("Not a valid I2C address.", result.body.error)
-                }
+        on("sending a command to an internal address")
+        {
+            it("should send the command over the bus")
+            {
+                controller.sendCommandToInternalAddress(0x1C, 0x01, "hello")
+                val data = I2CData("hello")
+                val address = I2CAddress(0x1C)
+                val internalAddress: Byte = 0x01
+
+                verify(driver).send(data, address, internalAddress)
+            }
+
+            it("should return success")
+            {
+                val result = controller.sendCommandToInternalAddress(0x1C, 0x01, "hello")
+
+                assertEquals("Success", result.body.data)
             }
         }
     }
-}
+    describe("a reserved address")
+    {
+        val driver: I2CDriver = mock()
+        val bus = I2CBus(driver)
+        val controller = I2CRestController(bus)
+
+        on("sending a command")
+        {
+            it("should return an error")
+            {
+                val result = controller.sendCommand(0x1A, "hello")
+
+                assertEquals("Not a valid I2C address.", result.body.error)
+            }
+        }
+    }
+})
