@@ -12,6 +12,8 @@ class I2CController constructor(val bus: I2CBus)
         val internalAddress = request.routeParams["internal_address"]?.toByte()
         val data = request.routeParams["data"]
 
+        print("Howdy!")
+
         if(address != null && (data != null))
         {
             val busAddress = I2CAddress(address)
@@ -20,6 +22,9 @@ class I2CController constructor(val bus: I2CBus)
             bus.send(i2cdata, busAddress, internalAddress)
         }
 
-        response.send(Result.SUCCESS)
+//        response.send(Result.SUCCESS)
+        response.send("hello")
+
+//        next()
     }
 }
