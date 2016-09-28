@@ -5,9 +5,9 @@ import io.frontierrobotics.i2c.bus.I2CAddress
 import io.frontierrobotics.i2c.bus.I2CBus
 import io.frontierrobotics.i2c.bus.I2CData
 import io.frontierrobotics.i2c.bus.driver.I2CDriver
-//import io.frontierrobotics.i2c.bus.driver.Pi4jI2CDriver
+import io.frontierrobotics.i2c.bus.driver.Pi4jI2CDriver
 import org.wasabifx.wasabi.app.AppServer
-import org.wasabifx.wasabi.interceptors.parseContentNegotiationHeaders
+import org.wasabifx.wasabi.interceptors.enableContentNegotiation
 
 fun main(args: Array<String>)
 {
@@ -18,15 +18,13 @@ fun main(args: Array<String>)
         }
 
     }
+
 //    val driver = Pi4jI2CDriver()
     val bus = I2CBus(driver)
     val i2cController = I2CController(bus)
     val server = AppServer()
 
-//    server.parseContentNegotiationHeaders() {
-//        onAcceptHeader()
-//    }
-
+    server.enableContentNegotiation()
     server.put("/bus/:bus/address/:address", i2cController.sendCommand )
     server.put("/bus/:bus/address/:address/internal_address/:internal_address", i2cController.sendCommand )
 
