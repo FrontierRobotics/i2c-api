@@ -5,13 +5,13 @@ import io.frontierrobotics.i2c.bus.I2CAddress
 import io.frontierrobotics.i2c.bus.I2CBus
 import io.frontierrobotics.i2c.bus.I2CData
 import io.frontierrobotics.i2c.bus.driver.I2CDriver
-import io.frontierrobotics.i2c.bus.driver.Pi4jI2CDriver
 import org.wasabifx.wasabi.app.AppServer
 import org.wasabifx.wasabi.interceptors.enableContentNegotiation
 
 fun main(args: Array<String>)
 {
-    val driver = object : I2CDriver{
+    val driver = object : I2CDriver
+    {
         override fun send(data: I2CData, address: I2CAddress, internalAddress: Byte?)
         {
             print(data)
@@ -25,8 +25,8 @@ fun main(args: Array<String>)
     val server = AppServer()
 
     server.enableContentNegotiation()
-    server.put("/bus/:bus/address/:address", i2cController.sendCommand )
-    server.put("/bus/:bus/address/:address/internal_address/:internal_address", i2cController.sendCommand )
+    server.put("/bus/:bus/address/:address", i2cController.sendCommand)
+    server.put("/bus/:bus/address/:address/internal_address/:internal_address", i2cController.sendCommand)
 
     server.start()
 }
