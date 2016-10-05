@@ -2,7 +2,7 @@ package io.frontierrobotics.i2c.bus
 
 data class I2CAddress(val value: Byte)
 {
-    val reserved = byteArrayOf(0x1A)
+    val reserved = byteArrayOf(0x1B)
 
     fun isValid(): Boolean
     {
