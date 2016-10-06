@@ -9,10 +9,10 @@ class Pi4jI2CDriver : I2CDriver, AutoCloseable
 {
     val bus = I2CFactory.getInstance(I2CBus.BUS_1)
 
-    override fun send(data: I2CData, address: I2CAddress, internalAddress: Byte?)
+    override fun send(data: I2CData, address: I2CAddress, internalAddress: I2CAddress?)
     {
         val bytes = data.asByteArray()
-        val device = bus.getDevice(address.value.toInt())
+        val device = bus.getDevice(address.toInt())
 
         if (internalAddress != null)
         {

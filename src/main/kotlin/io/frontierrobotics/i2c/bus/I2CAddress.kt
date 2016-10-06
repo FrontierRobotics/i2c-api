@@ -1,16 +1,22 @@
 package io.frontierrobotics.i2c.bus
 
-data class I2CAddress(val value: Byte)
+fun Int.toI2CAddress(): I2CAddress
 {
-    val reserved = byteArrayOf(0x1B)
+    return I2CAddress(this)
+}
+
+data class I2CAddress(val value: Int)
+{
+    val reserved = intArrayOf(0x1B)
 
     fun isValid(): Boolean
     {
-        return !isReserved()
+        return !isReserved() && isInRange()
     }
 
-    fun isReserved(): Boolean
-    {
-        return reserved.contains(value)
-    }
+    fun isInRange(): Boolean = value in 0..255
+
+    fun isReserved(): Boolean = reserved.contains(value)
+
+    fun toInt(): Int = value
 }
