@@ -37,7 +37,7 @@ class I2CBusSpecs : Spek({
             {
                 val data = I2CData("hello")
                 val address = I2CAddress(0x1C)
-                val internalAddress: Byte = 0x01
+                val internalAddress = I2CAddress(0x01)
 
                 bus.send(data, address, internalAddress)
 
@@ -50,7 +50,7 @@ class I2CBusSpecs : Spek({
             it("should return an error")
             {
                 val data = I2CData("hello")
-                val address = I2CAddress(0x1A)
+                val address = I2CAddress(0x1B)
 
                 assertFailsWith<IllegalArgumentException> {
                     bus.send(data, address)
