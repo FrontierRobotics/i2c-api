@@ -1,4 +1,4 @@
-package io.frontierrobotics.i2c.api
+package io.frontierrobotics.i2c.bus
 
 import com.nhaarman.mockito_kotlin.mock
 import com.nhaarman.mockito_kotlin.verify
