@@ -6,14 +6,18 @@ import io.frontierrobotics.i2c.bus.I2CAddress
 import io.frontierrobotics.i2c.bus.I2CBus
 import io.frontierrobotics.i2c.bus.I2CData
 import io.frontierrobotics.i2c.bus.driver.I2CDriver
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
 
 fun main(args: Array<String>)
 {
+    val log: Logger = LoggerFactory.getLogger("main")
+
     val driver = object : I2CDriver
     {
         override fun send(data: I2CData, address: I2CAddress, internalAddress: I2CAddress?)
         {
-            print(data)
+            log.info(data.toString())
         }
 
     }
