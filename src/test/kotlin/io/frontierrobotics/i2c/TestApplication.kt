@@ -22,7 +22,7 @@ fun main(args: Array<String>)
 
     }
 
-    val bus = I2CBus(driver)
+    val bus = I2CBus(driver, 0x1B)
     val i2cController = I2CController(bus)
     val server = Server(i2cController)
 

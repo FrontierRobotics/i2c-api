@@ -2,9 +2,6 @@ package io.frontierrobotics.i2c.bus
 
 import com.nhaarman.mockito_kotlin.mock
 import com.nhaarman.mockito_kotlin.verify
-import io.frontierrobotics.i2c.bus.I2CAddress
-import io.frontierrobotics.i2c.bus.I2CBus
-import io.frontierrobotics.i2c.bus.I2CData
 import io.frontierrobotics.i2c.bus.driver.I2CDriver
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.describe
@@ -16,7 +13,7 @@ class I2CBusSpecs : Spek({
     describe("an I2C Buss")
     {
         val driver: I2CDriver = mock()
-        val bus = I2CBus(driver)
+        val bus = I2CBus(driver, 0x1B)
 
         on("sending a command")
         {
@@ -27,7 +24,7 @@ class I2CBusSpecs : Spek({
 
                 bus.send(data, address)
 
-                verify(driver).send(data, address)
+                verify(driver).send(data, address, null)
             }
         }
 

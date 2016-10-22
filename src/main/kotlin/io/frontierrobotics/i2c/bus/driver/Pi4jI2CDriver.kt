@@ -17,7 +17,8 @@ class Pi4jI2CDriver : I2CDriver, AutoCloseable
         if (internalAddress != null)
         {
             device.write(internalAddress.toInt(), bytes, 0, bytes.size)
-        } else
+        }
+        else
         {
             device.write(bytes, 0, bytes.size)
         }
