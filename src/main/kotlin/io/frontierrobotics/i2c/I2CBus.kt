@@ -8,7 +8,7 @@ class I2CBus(val driver: I2CDriver, val selfAddress: I2CAddress)
 
     fun send(device: I2CDevice, data: I2CData)
     {
-        if (!device.isValid())
+        if (!isDeviceValid(device))
         {
             throw IllegalArgumentException("$device is not a valid I2C device.")
         }
