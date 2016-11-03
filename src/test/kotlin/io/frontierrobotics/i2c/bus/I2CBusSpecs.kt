@@ -2,7 +2,10 @@ package io.frontierrobotics.i2c.bus
 
 import com.nhaarman.mockito_kotlin.mock
 import com.nhaarman.mockito_kotlin.verify
-import io.frontierrobotics.i2c.bus.driver.I2CDriver
+import io.frontierrobotics.i2c.I2CAddress
+import io.frontierrobotics.i2c.I2CBus
+import io.frontierrobotics.i2c.I2CData
+import io.frontierrobotics.i2c.driver.I2CDriver
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.describe
 import org.jetbrains.spek.api.dsl.it
@@ -22,7 +25,7 @@ class I2CBusSpecs : Spek({
                 val data = I2CData("hello")
                 val address = I2CAddress(0x1C)
 
-                bus.send(data, address)
+                bus.send(address, data)
 
                 verify(driver).send(data, address, null)
             }
@@ -50,7 +53,7 @@ class I2CBusSpecs : Spek({
                 val address = I2CAddress(0x1B)
 
                 assertFailsWith<IllegalArgumentException> {
-                    bus.send(data, address)
+                    bus.send(address, data)
                 }
             }
         }

@@ -1,4 +1,4 @@
-package io.frontierrobotics.i2c.bus
+package io.frontierrobotics.i2c
 
 fun String.toI2CAddress(): I2CAddress
 {

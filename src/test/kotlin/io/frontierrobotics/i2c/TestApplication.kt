@@ -1,11 +1,11 @@
 package io.frontierrobotics.i2c
 
-import io.frontierrobotics.i2c.api.I2CController
+import io.frontierrobotics.i2c.api.Controller
 import io.frontierrobotics.i2c.api.Server
-import io.frontierrobotics.i2c.bus.I2CAddress
-import io.frontierrobotics.i2c.bus.I2CBus
-import io.frontierrobotics.i2c.bus.I2CData
-import io.frontierrobotics.i2c.bus.driver.I2CDriver
+import io.frontierrobotics.i2c.I2CAddress
+import io.frontierrobotics.i2c.I2CBus
+import io.frontierrobotics.i2c.I2CData
+import io.frontierrobotics.i2c.driver.I2CDriver
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 
@@ -23,7 +23,7 @@ fun main(args: Array<String>)
     }
 
     val bus = I2CBus(driver, 0x1B)
-    val i2cController = I2CController(bus)
+    val i2cController = Controller(bus)
     val server = Server(i2cController)
 
     server.start()

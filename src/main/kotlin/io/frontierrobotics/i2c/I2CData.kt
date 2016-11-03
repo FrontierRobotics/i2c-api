@@ -1,4 +1,4 @@
-package io.frontierrobotics.i2c.bus
+package io.frontierrobotics.i2c
 
 fun Any.toI2CData(): I2CData
 {
