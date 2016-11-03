@@ -9,6 +9,8 @@ data class I2CData(val data: String)
 {
     constructor() : this("")
 
+    constructor(buffer: ByteArray) : this(buffer.toString(Charsets.UTF_8))
+
     fun asByteArray(): ByteArray
     {
         return data.toByteArray(Charsets.UTF_8)

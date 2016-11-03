@@ -14,9 +14,14 @@ fun main(args: Array<String>)
     {
         override fun send(device: I2CDevice, data: I2CData)
         {
-            log.info(data.toString())
+            log.info("Mock sending $data to $device")
         }
 
+        override fun receive(device: I2CDevice, size: Int): I2CData
+        {
+            log.info("Mock receiving $size bytes from $device")
+            return I2CData(ByteArray(size))
+        }
     }
 
     val bus = I2CBus(driver, 0x1B)
