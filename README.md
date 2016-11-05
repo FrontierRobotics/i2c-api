@@ -3,7 +3,7 @@ I2C Web API for the Raspberry Pi.
 
 ## Design and Usage
 
-To see what operations this API supports, see the [API Design Documentation](docs/api-design.md).
+To find out what operations this API supports, see the [API Design Documentation](docs/api-design.md).
 
 ## Building
 
