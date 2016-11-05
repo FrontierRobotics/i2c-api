@@ -8,13 +8,13 @@ data class I2CDevice(val busAddress: I2CAddress, val internalAddress: I2CAddress
 
     override fun toString(): String
     {
-        return if (internalAddress == null)
+        if (internalAddress == null)
         {
-            "I2CDevice(busAddress=$busAddress)"
+            return "I2CDevice(busAddress=$busAddress)"
         }
         else
         {
-            "I2CDevice(busAddress=$busAddress, internalAddress=$internalAddress)"
+            return "I2CDevice(busAddress=$busAddress, internalAddress=$internalAddress)"
         }
     }
 }

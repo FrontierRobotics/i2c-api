@@ -6,9 +6,7 @@ fun Int.toI2CAddress() = I2CAddress(this)
 
 data class I2CAddress(val value: Int)
 {
-    fun isValid() = isInRange()
-
-    fun isInRange() = value in 0..255
+    fun isValid() = value in 0..255
 
     fun toInt() = value
 
