@@ -3,7 +3,7 @@ package io.frontierrobotics.i2c.api
 import org.wasabifx.wasabi.app.AppServer
 import org.wasabifx.wasabi.interceptors.enableContentNegotiation
 
-class Server (val i2cController: I2CController)
+class Server(val i2cController: Controller)
 {
     fun start()
     {

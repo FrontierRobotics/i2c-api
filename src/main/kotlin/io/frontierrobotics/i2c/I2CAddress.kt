@@ -1,4 +1,9 @@
-package io.frontierrobotics.i2c.bus
+package io.frontierrobotics.i2c
+
+fun String.toI2CAddress(): I2CAddress
+{
+    return this.toInt().toI2CAddress()
+}
 
 fun Int.toI2CAddress(): I2CAddress
 {
@@ -7,16 +12,12 @@ fun Int.toI2CAddress(): I2CAddress
 
 data class I2CAddress(val value: Int)
 {
-    val reserved = intArrayOf(0x1B)
-
     fun isValid(): Boolean
     {
-        return !isReserved() && isInRange()
+        return isInRange()
     }
 
     fun isInRange(): Boolean = value in 0..255
-
-    fun isReserved(): Boolean = reserved.contains(value)
 
     fun toInt(): Int = value
 }
