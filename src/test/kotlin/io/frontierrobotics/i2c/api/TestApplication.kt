@@ -1,5 +1,8 @@
-package io.frontierrobotics.i2c
+package io.frontierrobotics.i2c.api
 
+import io.frontierrobotics.i2c.I2CBus
+import io.frontierrobotics.i2c.I2CData
+import io.frontierrobotics.i2c.I2CDevice
 import io.frontierrobotics.i2c.api.Controller
 import io.frontierrobotics.i2c.api.Server
 import io.frontierrobotics.i2c.driver.I2CDriver
