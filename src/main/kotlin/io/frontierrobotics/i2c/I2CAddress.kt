@@ -1,23 +1,14 @@
 package io.frontierrobotics.i2c
 
-fun String.toI2CAddress(): I2CAddress
-{
-    return this.toInt().toI2CAddress()
-}
+fun String.toI2CAddress() = this.toInt().toI2CAddress()
 
-fun Int.toI2CAddress(): I2CAddress
-{
-    return I2CAddress(this)
-}
+fun Int.toI2CAddress() = I2CAddress(this)
 
 data class I2CAddress(val value: Int)
 {
-    fun isValid(): Boolean
-    {
-        return isInRange()
-    }
+    fun isValid() = value in 0..255
 
-    fun isInRange(): Boolean = value in 0..255
+    fun toInt() = value
 
-    fun toInt(): Int = value
+    override fun toString(): String = java.lang.String.format("0x%02X", toInt())
 }

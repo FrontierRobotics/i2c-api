@@ -12,6 +12,8 @@ class Server(val i2cController: Controller)
         server.enableContentNegotiation()
         server.put("/bus/:bus/address/:address", i2cController.sendCommand)
         server.put("/bus/:bus/address/:address/internal_address/:internal_address", i2cController.sendCommand)
+        server.get("/bus/:bus/address/:address", i2cController.receiveCommand)
+        server.get("/bus/:bus/address/:address/internal_address/:internal_address", i2cController.receiveCommand)
 
         server.start()
     }

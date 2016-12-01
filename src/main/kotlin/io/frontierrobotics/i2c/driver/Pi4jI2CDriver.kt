@@ -11,21 +11,35 @@ class Pi4jI2CDriver : I2CDriver, AutoCloseable
 
     override fun send(device: I2CDevice, data: I2CData)
     {
-        val bytes = data.asByteArray()
+        val buffer = data.asByteArray()
         val pi4jDevice = bus.getDevice(device.busAddress.toInt())
 
         if (device.internalAddress != null)
         {
-            pi4jDevice.write(device.internalAddress.toInt(), bytes, 0, bytes.size)
+            pi4jDevice.write(device.internalAddress.toInt(), buffer, 0, buffer.size)
         }
         else
         {
-            pi4jDevice.write(bytes, 0, bytes.size)
+            pi4jDevice.write(buffer, 0, buffer.size)
         }
     }
 
-    override fun close()
+    override fun receive(device: I2CDevice, size: Int): I2CData
     {
-        bus.close()
+        val buffer = ByteArray(size)
+        val pi4jDevice = bus.getDevice(device.busAddress.toInt())
+
+        if (device.internalAddress != null)
+        {
+            pi4jDevice.read(device.internalAddress.toInt(), buffer, 0, buffer.size)
+        }
+        else
+        {
+            pi4jDevice.read(buffer, 0, buffer.size)
+        }
+
+        return I2CData(buffer)
     }
+
+    override fun close() = bus.close()
 }
