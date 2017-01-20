@@ -16,14 +16,14 @@ class I2CBus(val driver: I2CDriver, val selfAddress: I2CAddress)
         driver.send(device, data)
     }
 
-    fun receive(device: I2CDevice, size: Int): I2CData
+    fun receive(device: I2CDevice, size: Int? = 0): I2CData
     {
         if (!isDeviceValid(device))
         {
             throw IllegalArgumentException("$device is not a valid I2C device.")
         }
 
-        return driver.receive(device, size)
+        return driver.receive(device, size ?: 0)
     }
 
     fun isDeviceValid(device: I2CDevice) = device.isValid() && selfAddress != device.busAddress

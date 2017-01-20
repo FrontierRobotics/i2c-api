@@ -11,15 +11,15 @@ class NoOpDriver : I2CDriver
 {
     val log: Logger = LoggerFactory.getLogger(Controller::class.java)
 
+    override fun send(device: I2CDevice, data: I2CData)
+    {
+        log.info("No-Op Send")
+    }
+
     override fun receive(device: I2CDevice, size: Int): I2CData
     {
         log.info("No-Op Receive")
 
         return I2CData("Empty")
-    }
-
-    override fun send(device: I2CDevice, data: I2CData)
-    {
-        log.info("No-Op Send")
     }
 }
