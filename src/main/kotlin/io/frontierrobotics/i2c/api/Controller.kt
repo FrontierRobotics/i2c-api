@@ -3,15 +3,11 @@ package io.frontierrobotics.i2c.api
 import io.frontierrobotics.i2c.I2CBus
 import io.frontierrobotics.i2c.I2CData
 import io.frontierrobotics.i2c.I2CDevice
-import org.slf4j.Logger
-import org.slf4j.LoggerFactory
 import org.springframework.web.bind.annotation.*
 
 @RestController
 class Controller(val i2CBus: I2CBus)
 {
-    val log: Logger = LoggerFactory.getLogger(Controller::class.java)
-
     @PutMapping("/bus/{bus}/address/{address}")
     fun sendCommandToAddress(@PathVariable bus: Int,
                              @PathVariable address: Int,

@@ -15,7 +15,7 @@ class DefaultExceptionHandler
     val log: Logger = LoggerFactory.getLogger(DefaultExceptionHandler::class.java)
     val DEFAULT_ERROR_VIEW = "error"
 
-    @ExceptionHandler(value = Exception::class)
+    @ExceptionHandler(Exception::class)
     @Throws(Exception::class)
     fun defaultErrorHandler(req: HttpServletRequest, e: Exception): ModelAndView
     {
