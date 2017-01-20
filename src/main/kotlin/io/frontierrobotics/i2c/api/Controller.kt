@@ -19,7 +19,7 @@ class Controller(val i2CBus: I2CBus)
     {
         val device = I2CDevice(address)
 
-        send(device, data)
+        i2CBus.send(device, data)
     }
 
     @PutMapping("/bus/{bus}/address/{address}/internal_address/{internal_address}")
@@ -30,7 +30,7 @@ class Controller(val i2CBus: I2CBus)
     {
         val device = I2CDevice(address, internalAddress)
 
-        send(device, data)
+        i2CBus.send(device, data)
     }
 
     @GetMapping("/bus/{bus}/address/{address}")
@@ -41,7 +41,7 @@ class Controller(val i2CBus: I2CBus)
     {
         val device = I2CDevice(address)
 
-        return receive(device, size)
+        return i2CBus.receive(device, size)
     }
 
     @GetMapping("/bus/{bus}/address/{address}/internal_address/{internal_address}")
@@ -52,39 +52,6 @@ class Controller(val i2CBus: I2CBus)
                                           @RequestParam(required = false) size: Int?) : I2CData
     {
         val device = I2CDevice(address, internalAddress)
-
-        return receive(device, size)
-    }
-
-    private fun send(device: I2CDevice, data: I2CData)
-    {
-        if (!i2CBus.isDeviceValid(device))
-        {
-            //response.setStatus(400, "Validation Error!")
-            //response.send("$device is not a valid I2C device.")
-
-            //return response
-        }
-
-        log.info("Sending $data to $device")
-
-        i2CBus.send(device, data)
-
-//        response.send(Result.SUCCESS)
-        //response.send("hello")
-    }
-
-    private fun receive(device: I2CDevice, size: Int?) : I2CData
-    {
-        if (!i2CBus.isDeviceValid(device))
-        {
-            //response.setStatus(400, "Validation Error!")
-            //response.send("$device is not a valid I2C device.")
-
-            //return response
-        }
-
-        log.info("Requesting $size bytes from: $device")
 
         return i2CBus.receive(device, size)
     }
