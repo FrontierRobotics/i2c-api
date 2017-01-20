@@ -58,7 +58,7 @@ class Controller(val i2CBus: I2CBus)
     @PutMapping("/bus/{bus}/address/{address}")
     fun sendCommandToAddress(@PathVariable bus: Int,
                              @PathVariable address: Int,
-                             @RequestBody data: String)
+                             @RequestBody data: I2CData)
     {
         val device = I2CDevice(address)
 
@@ -70,11 +70,9 @@ class Controller(val i2CBus: I2CBus)
             //return response
         }
 
-        val i2cData = I2CData(data)
+        log.info("Sending $data to $device")
 
-        log.info("Sending $i2cData to $device")
-
-        i2CBus.send(device, i2cData)
+        i2CBus.send(device, data)
 
 //        response.send(Result.SUCCESS)
         //response.send("hello")
@@ -84,7 +82,7 @@ class Controller(val i2CBus: I2CBus)
     fun sendCommandToInternalAddress(@PathVariable bus: Int,
                                      @PathVariable address: Int,
                                      @PathVariable internalAddress: Int,
-                                     @RequestBody data: String)
+                                     @RequestBody data: I2CData)
     {
         val device = I2CDevice(address, internalAddress)
 
@@ -96,11 +94,9 @@ class Controller(val i2CBus: I2CBus)
             //return response
         }
 
-        val i2cData = I2CData(data)
+        log.info("Sending $data to $device")
 
-        log.info("Sending $i2cData to $device")
-
-        i2CBus.send(device, i2cData)
+        i2CBus.send(device, data)
 
 //        response.send(Result.SUCCESS)
         //response.send("hello")
