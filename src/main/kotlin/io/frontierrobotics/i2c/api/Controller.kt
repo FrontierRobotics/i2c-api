@@ -18,7 +18,7 @@ class Controller(val i2CBus: I2CBus)
         i2CBus.send(device, data)
     }
 
-    @PutMapping("/bus/{bus}/address/{address}/internal_address/{internal_address}")
+    @PutMapping("/bus/{bus}/address/{address}/internal_address/{internalAddress}")
     fun sendCommandToInternalAddress(@PathVariable bus: Int,
                                      @PathVariable address: Int,
                                      @PathVariable internalAddress: Int,
@@ -40,7 +40,7 @@ class Controller(val i2CBus: I2CBus)
         return i2CBus.receive(device, size)
     }
 
-    @GetMapping("/bus/{bus}/address/{address}/internal_address/{internal_address}")
+    @GetMapping("/bus/{bus}/address/{address}/internal_address/{internalAddress}")
     @ResponseBody
     fun receiveCommandFromInternalAddress(@PathVariable bus: Int,
                                           @PathVariable address: Int,
