@@ -11,7 +11,7 @@ import org.springframework.context.annotation.Bean
 @SpringBootApplication
 open class Application {
     @Bean
-    open fun realDriver() = Pi4jI2CDriver()
+    open fun driver() = Pi4jI2CDriver()
 
     @Bean
     open fun bus(driver: I2CDriver) = I2CBus(driver, 0x1B)
