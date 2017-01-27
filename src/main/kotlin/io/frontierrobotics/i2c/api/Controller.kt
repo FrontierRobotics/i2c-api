@@ -1,56 +1,55 @@
 package io.frontierrobotics.i2c.api
 
-import io.frontierrobotics.i2c.*
-import org.slf4j.Logger
-import org.slf4j.LoggerFactory
-import org.wasabifx.wasabi.routing.RouteHandler
+import io.frontierrobotics.i2c.I2CBus
+import io.frontierrobotics.i2c.I2CData
+import io.frontierrobotics.i2c.I2CDevice
+import org.springframework.http.ResponseEntity
+import org.springframework.web.bind.annotation.*
 
-class Controller(val bus: I2CBus, val log: Logger = LoggerFactory.getLogger(Controller::class.java))
+@RestController
+class Controller(val i2CBus: I2CBus)
 {
-    val sendCommand = i2cRouteHandler { device ->
-        val data = request.bodyParams["data"]?.toI2CData() ?: I2CData()
+    @PutMapping("/bus/{bus}/address/{address}")
+    fun sendCommandToAddress(@PathVariable bus: Int,
+                             @PathVariable address: Int,
+                             @RequestBody data: I2CData)
+    {
+        val device = I2CDevice(address)
 
-        log.info("Sending $data to $device")
-
-        bus.send(device, data)
-
-//        response.send(Result.SUCCESS)
-        response.send("hello")
+        i2CBus.send(device, data)
     }
 
-    val receiveCommand = i2cRouteHandler { device ->
-        val size = request.queryParams["size"]?.toString()?.toInt() ?: 0
+    @PutMapping("/bus/{bus}/address/{address}/internal_address/{internalAddress}")
+    fun sendCommandToInternalAddress(@PathVariable bus: Int,
+                                     @PathVariable address: Int,
+                                     @PathVariable internalAddress: Int,
+                                     @RequestBody data: I2CData)
+    {
+        val device = I2CDevice(address, internalAddress)
 
-        log.info("Requesting $size bytes from: $device")
-
-        val data = bus.receive(device, size)
-
-//        response.send(Result.SUCCESS)
-        response.send(data.toString())
+        i2CBus.send(device, data)
     }
 
-    private fun i2cRouteHandler(routeHandler: RouteHandler.(device: I2CDevice) -> Unit): RouteHandler.() -> Unit = {
-        val address = request.routeParams["address"]?.toI2CAddress()
-        val internalAddress = request.routeParams["internal_address"]?.toI2CAddress()
+    @GetMapping("/bus/{bus}/address/{address}")
+    fun receiveCommandFromAddress(@PathVariable bus: Int,
+                                  @PathVariable address: Int,
+                                  @RequestParam(required = false) size: Int?) : ResponseEntity<I2CData>
+    {
+        val device = I2CDevice(address)
+        val data = i2CBus.receive(device, size)
 
-        if (address == null)
-        {
-            response.setStatus(400, "Validation Error!")
-            response.send("Must specify an address.")
-        }
-        else
-        {
-            val device = I2CDevice(address, internalAddress)
+        return ResponseEntity.ok(data)
+    }
 
-            if (!bus.isDeviceValid(device))
-            {
-                response.setStatus(400, "Validation Error!")
-                response.send("$device is not a valid I2C device.")
-            }
-            else
-            {
-                routeHandler(device)
-            }
-        }
+    @GetMapping("/bus/{bus}/address/{address}/internal_address/{internalAddress}")
+    fun receiveCommandFromInternalAddress(@PathVariable bus: Int,
+                                          @PathVariable address: Int,
+                                          @PathVariable internalAddress: Int,
+                                          @RequestParam(required = false) size: Int?) : ResponseEntity<I2CData>
+    {
+        val device = I2CDevice(address, internalAddress)
+        val data = i2CBus.receive(device, size)
+
+        return ResponseEntity.ok(data)
     }
 }

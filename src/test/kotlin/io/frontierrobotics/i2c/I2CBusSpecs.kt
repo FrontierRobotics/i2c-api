@@ -19,7 +19,7 @@ class I2CBusSpecs : Spek({
 
         on("sending a command")
         {
-            it("should send the command over the bus")
+            it("should send the command over the i2CBus")
             {
                 val data = I2CData("hello")
                 val device = I2CDevice(0x1C)
@@ -32,7 +32,7 @@ class I2CBusSpecs : Spek({
 
         on("sending a command to an internal address")
         {
-            it("should send the command over the bus")
+            it("should send the command over the i2CBus")
             {
                 val data = I2CData("hello")
                 val device = I2CDevice(0x1C, 0x01)
@@ -71,7 +71,7 @@ class I2CBusSpecs : Spek({
 
         on("receiving data")
         {
-            it("should receive the data over the bus")
+            it("should receive the data over the i2CBus")
             {
                 val device = I2CDevice(0x1C)
                 val expected = I2CData("123")
@@ -86,7 +86,7 @@ class I2CBusSpecs : Spek({
 
         on("receiving a command from an internal address")
         {
-            it("should receive the data over the bus")
+            it("should receive the data over the i2CBus")
             {
                 val device = I2CDevice(0x1C, 0x01)
                 val expected = I2CData("123")
